@@ -1,0 +1,125 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Color Picker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --background: #f0f2f5;
+            --card-background: white;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--background);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            background: var(--card-background);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .color-preview {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            margin: 2rem auto;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .color-codes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .code-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 3px 10px var(--shadow-color);
+        }
+
+        .code-title {
+            font-size: 1.2rem;
+            margin-bottom: .5rem;
+        }
+
+        .code-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        toolcool-color-picker {
+            margin: 2rem auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Advanced Color Picker</h1>
+        <toolcool-color-picker id="colorPicker" color="#3498db"></toolcool-color-picker>
+        
+        <div class="color-preview" id="colorPreview"></div>
+        
+        <div class="color-codes">
+            <div class="code-box">
+                <div class="code-title">HEX</div>
+                <p class="code-value" id="hexCode">#3498db</p>
+            </div>
+            <div class="code-box">
+                <div class="code-title">RGB</div>
+                <p class="code-value" id="rgbCode">rgb(52, 152, 219)</p>
+            </div>
+            <div class="code-box">
+                <div class="code-title">HSL</div>
+                <p class="code-value" id="hslCode">hsl(204, 70%, 53%)</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/toolcool-color-picker/dist/toolcool-color-picker.min.js"></script>
+    <script>
+        const colorPicker = document.getElementById('colorPicker');
+        const colorPreview = document.getElementById('colorPreview');
+
+        // Update color display and codes
+        colorPicker.addEventListener('change', (evt) => {
+            const color = evt.detail.color;
+
+            // Update preview
+            const hexColor = color.toHexString();
+            colorPreview.style.backgroundColor = hexColor;
+
+            // Update color codes
+            document.getElementById('hexCode').textContent = hexColor.toUpperCase();
+            document.getElementById('rgbCode').textContent = color.toRgbString();
+            document.getElementById('hslCode').textContent = color.toHslString();
+        });
+    </script>
+</body>
+</html>
